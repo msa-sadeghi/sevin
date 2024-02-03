@@ -35,5 +35,12 @@ class Player(Sprite):
     def reset(self):
         self.rect.bottom = SCREEN_HEIGHT
         self.rect.centerx = SCREEN_WIDTH/2
+        
+        
+    def warp(self):
+        if self.warp_counter >0 :
+            self.reset()
+            self.warp_sound.play()
+            self.warp_counter -= 1
 
 

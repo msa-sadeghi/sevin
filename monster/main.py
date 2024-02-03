@@ -14,6 +14,8 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
+            if event.key == pygame.K_SPACE:
+                my_player.warp()
 
 
     SCREEN.fill(BLACK)

@@ -32,6 +32,7 @@ class Game:
 
     def start_new_level(self):
         self.level_number += 1
+        self.player.warp_counter += 2
         for i in range(self.level_number):
 
             blue_monster = Monster(
@@ -86,10 +87,11 @@ class Game:
         score_rect = score_text.get_rect(topleft=(0,10))
         lives_text = self.font.render(f"lives:{self.player.lives}", True, (100,230,220))
         lives_rect = lives_text.get_rect(topright=(SCREEN_WIDTH,10))
-        # TODO اضافه کردن شماره مرجله به سمت راست صفحه
-        # TODO اضافه کردن جان بازیکن به بالا و زیر امتیاز
+        warp_text = self.font.render(f"warp:{self.player.warp_counter}", True, (100,230,220))
+        warp_rect = warp_text.get_rect(topleft=(0,50))
         SCREEN.blit(score_text, score_rect)
         SCREEN.blit(lives_text, lives_rect)
+        SCREEN.blit(warp_text, warp_rect)
         SCREEN.blit(self.target_monster_image, self.target_monster_rect)
 
         pygame.draw.rect(SCREEN, ALL_COLORS[self.target_monster_type],(0, 100, SCREEN_WIDTH, SCREEN_HEIGHT - 200),6)
