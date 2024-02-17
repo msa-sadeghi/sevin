@@ -22,9 +22,16 @@ def spawn_enemies():
     for i in range(4):
         for j in range(10):
             Enemy(j * 96, i * 96, enemy_group)
-        
+
+def check_bullet_collisions() :
+    if pygame.sprite.groupcollide(player_bullet_group, enemy_group, True, True):
+        pass
+   
 my_player = Player()
 enemy_group = pygame.sprite.Group()
+player_bullet_group = pygame.sprite.Group()
+
+
 spawn_enemies()
 running = True
 while running:
@@ -32,11 +39,16 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
+            if event.key == pygame.K_SPACE:
+                my_player.shoot(player_bullet_group)
+    check_bullet_collisions()
     screen.fill((0,0,0)) 
     check_on_edge()
     my_player.move()
     my_player.draw()  
     enemy_group.update()       
     enemy_group.draw(screen)
+    player_bullet_group.update()       
+    player_bullet_group.draw(screen)
     pygame.display.update()
     CLOCK.tick(FPS)

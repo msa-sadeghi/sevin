@@ -1,14 +1,15 @@
 from pygame.sprite import Sprite
 from constants import *
-
+from bullet import Bullet
 class Player(Sprite):
     def __init__(self):
         self.image = pygame.image.load("assets/spaceship.png")
         self.rect = self.image.get_rect()
         self.rect.bottom = SCREEN_HEIGHT
-        self.rect.centerx = SCREEN_WIDTH/2
-        
-        
+        self.rect.centerx = SCREEN_WIDTH/2     
+    def shoot(self, group):
+        Bullet(self.rect.centerx, self.rect.top, group)
+       
     def draw(self):
         screen.blit(self.image, self.rect)
         
@@ -18,3 +19,6 @@ class Player(Sprite):
             self.rect.x -= 5
         if keys[pygame.K_RIGHT] and self.rect.right < SCREEN_WIDTH:
             self.rect.x += 5
+                  
+    
+        
