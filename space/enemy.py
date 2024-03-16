@@ -1,5 +1,7 @@
 from pygame.sprite import Sprite
 import pygame
+from egg import Egg
+import random
 class Enemy(Sprite):
     def __init__(self, x,y, group):
         super().__init__()
@@ -13,8 +15,14 @@ class Enemy(Sprite):
         self.direction = 1
         self.speed = 3
         
-    def update(self):
+    def update(self, group):
         self.rect.x += self.speed * self.direction
+        self.fire(group)
+        
+    def fire(self, group):
+        if random.randint(1,1000) == 1000:
+            Egg(self.rect.centerx, self.rect.bottom, group)
+        
         
         
     

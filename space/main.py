@@ -26,10 +26,16 @@ def spawn_enemies():
 def check_bullet_collisions() :
     if pygame.sprite.groupcollide(player_bullet_group, enemy_group, True, True):
         pass
+    if pygame.sprite.spritecollide(my_player, egg_group, True):
+        pass
+    
+    if pygame.sprite.groupcollide(player_bullet_group, egg_group, True, True):
+        pass
    
 my_player = Player()
 enemy_group = pygame.sprite.Group()
 player_bullet_group = pygame.sprite.Group()
+egg_group = pygame.sprite.Group()
 
 
 spawn_enemies()
@@ -46,9 +52,11 @@ while running:
     check_on_edge()
     my_player.move()
     my_player.draw()  
-    enemy_group.update()       
+    enemy_group.update(egg_group)       
     enemy_group.draw(screen)
     player_bullet_group.update()       
     player_bullet_group.draw(screen)
+    egg_group.update()       
+    egg_group.draw(screen)
     pygame.display.update()
     CLOCK.tick(FPS)
