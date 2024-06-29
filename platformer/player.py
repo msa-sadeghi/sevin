@@ -1,6 +1,7 @@
 from pygame.sprite import Sprite
 import pygame
 from constants import *
+from game import Game
 class Player(Sprite):
     def __init__(self, x,y):
         super().__init__()
@@ -24,9 +25,12 @@ class Player(Sprite):
         self.idle = True
         self.inair = False
         self.dead_image = pygame.image.load("assets/ghost.png")
+        self.alive = True
        
 
     def draw(self, screen):
+        if not self.alive:
+            self.image = self.dead_image
         screen.blit(self.image, self.rect)
         self.animation()
     def animation(self):
@@ -43,7 +47,7 @@ class Player(Sprite):
             
         
        
-    def move(self, tiles):
+    def move(self, tiles, enemy_group, lava_group, door_group):
         dx = 0
         dy = 0
         keys = pygame.key.get_pressed()
@@ -64,10 +68,19 @@ class Player(Sprite):
         
         dy += self.vel_y
         self.vel_y += 1
-        self.check_collisions(tiles,dx, dy)   
+        self.check_collisions(tiles,dx, dy,enemy_group, lava_group, door_group)  
+        
+            
         
 
-    def check_collisions(self, tiles,dx,dy):
+    def check_collisions(self, tiles,dx,dy,enemy_group, lava_group, door_group):
+        if pygame.sprite.spritecollide(self, door_group, False) :
+            Game.next_level = True
+            
+        if pygame.sprite.spritecollide(self, enemy_group, False) :
+            self.alive = False
+        if pygame.sprite.spritecollide(self, lava_group, False) :
+            self.alive = False
         for t in tiles:
             if t[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
                 dx = 0
