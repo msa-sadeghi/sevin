@@ -9,6 +9,7 @@ class Coin(Sprite):
         self.counter = 0
         self.direction = 1
         
+        
     def update(self):
         self.counter += 1
         if self.counter >= 50:

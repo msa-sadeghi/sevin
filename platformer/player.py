@@ -26,6 +26,7 @@ class Player(Sprite):
         self.inair = False
         self.dead_image = pygame.image.load("assets/ghost.png")
         self.alive = True
+        self.coin_sound = pygame.mixer.Sound("assets/coin.wav")
        
 
     def draw(self, screen):
@@ -47,7 +48,7 @@ class Player(Sprite):
             
         
        
-    def move(self, tiles, enemy_group, lava_group, door_group):
+    def move(self, tiles, enemy_group, lava_group, door_group, coin_group):
         dx = 0
         dy = 0
         keys = pygame.key.get_pressed()
@@ -68,14 +69,17 @@ class Player(Sprite):
         
         dy += self.vel_y
         self.vel_y += 1
-        self.check_collisions(tiles,dx, dy,enemy_group, lava_group, door_group)  
+        self.check_collisions(tiles,dx, dy,enemy_group, lava_group, door_group, coin_group)  
         
             
         
 
-    def check_collisions(self, tiles,dx,dy,enemy_group, lava_group, door_group):
+    def check_collisions(self, tiles,dx,dy,enemy_group, lava_group, door_group, coin_group):
         if pygame.sprite.spritecollide(self, door_group, False) :
             Game.next_level = True
+        if pygame.sprite.spritecollide(self, coin_group, True) :
+            self.coin_sound.play()
+            # Game.next_level = True
             
         if pygame.sprite.spritecollide(self, enemy_group, False) :
             self.alive = False
@@ -85,9 +89,14 @@ class Player(Sprite):
             if t[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
                 dx = 0
             if t[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
-                dy = 0
-                self.vel_y = 0
-                self.jumped = False
+                if self.vel_y > 0:
+                    dy = 0
+                    self.vel_y = 0
+                    self.jumped = False
+                else:
+                    dy = 0
+                    self.vel_y = 0
+                    
                 
         self.rect.x += dx
         self.rect.y += dy

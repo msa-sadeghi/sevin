@@ -20,8 +20,12 @@ clock = pygame.time.Clock()
 player = Player(100,screen_height-600)
 
 level = 1
+max_level = 3
 with open("levels\level1", "rb") as f:
     world_data = pickle.load(f)
+
+
+
 
 world = World(world_data, enemy_group, coin_group, lava_group, door_group)
 
@@ -37,7 +41,7 @@ while running:
     world.draw(screen)
     player.draw(screen)
     if player.alive:
-        player.move(world.tile_list, enemy_group, lava_group, door_group)
+        player.move(world.tile_list, enemy_group, lava_group, door_group, coin_group)
     else:
         restart_button.draw(screen)
         if restart_button.check_click():
@@ -48,6 +52,12 @@ while running:
     enemy_group.update()
     coin_group.draw(screen)
     coin_group.update()
+    if Game.next_level and level < max_level:
+        level += 1
+        world_data = Game.go_next_level(level, enemy_group, coin_group, door_group, lava_group)
+        player.__init__(100,screen_height-600)
+        world = World(world_data, enemy_group, coin_group, lava_group, door_group)
+        Game.next_level = False
     pygame.display.update()
     clock.tick(FPS)
 
