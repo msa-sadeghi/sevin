@@ -21,8 +21,44 @@ class Player(Sprite):
         self.action = "Idle"
         self.image = self.all_images[self.action][self.frame_index]
         self.rect = self.image.get_rect(topleft=(x,y))
+        self.last_animation_time = pygame.time.get_ticks()
+        self.moving = False
+        self.moving_state = False
+        self.flip = False
 
+    def move(self):
+        dx = 0
+        dy = 0
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.moving_state = True
+            self.flip = True
+            dx -= 5
+        if keys[pygame.K_RIGHT]:
+            self.moving_state = True
+            self.flip = False
+            dx += 5
+        if not keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
+            self.moving_state = False
+        self.rect.x += dx
+        self.rect.y += dy
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
+        self.animation()
+
+
+    def animation(self):
+        self.image = self.all_images[self.action][self.frame_index]
+        if pygame.time.get_ticks() - self.last_animation_time >= 100:
+            self.frame_index += 1
+            if self.frame_index >= len(self.all_images[self.action]):
+                self.frame_index = 0
+            self.last_animation_time = pygame.time.get_ticks()
+
+
+    def change_animation(self, new_animation):
+        if self.action != new_animation:
+            self.action = new_animation
+            self.frame_index = 0
 
