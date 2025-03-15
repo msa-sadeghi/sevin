@@ -19,6 +19,10 @@ while running == True:
             running = False
     if my_player.moving_state == True:
         my_player.change_animation("Run")
+    elif my_player.in_air == True:
+        my_player.change_animation('Jump')
+    elif my_player.sliding == True:
+        my_player.change_animation('Slide')
     else:
         my_player.change_animation("Idle")
     

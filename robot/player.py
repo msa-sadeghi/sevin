@@ -25,6 +25,10 @@ class Player(Sprite):
         self.moving = False
         self.moving_state = False
         self.flip = False
+        self.yspeed = 0
+        self.in_air = False
+        self.direction = 1
+        self.sliding = False
 
     def move(self):
         dx = 0
@@ -32,16 +36,38 @@ class Player(Sprite):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             self.moving_state = True
+            self.direction = -1
             self.flip = True
             dx -= 5
         if keys[pygame.K_RIGHT]:
             self.moving_state = True
+            self.direction = 1
             self.flip = False
             dx += 5
         if not keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
             self.moving_state = False
+        if keys[pygame.K_UP]:
+            self.yspeed = -14
+            self.in_air = True
+        if keys[pygame.K_DOWN]:
+            dx += self.direction * 10  
+            self.sliding = True
+            self.sliding_time = pygame.time.get_ticks()
+        if not keys[pygame.K_DOWN] :
+            self.sliding = False
+
+        dy += self.yspeed
+        self.yspeed += 1
+
+        if self.rect.bottom + dy >= 600:
+            dy = 600 - self.rect.bottom
+            self.yspeed = 0
+            self.in_air = False
+
         self.rect.x += dx
         self.rect.y += dy
+
+
 
     def draw(self, screen):
         screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
