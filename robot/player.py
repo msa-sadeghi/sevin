@@ -29,6 +29,7 @@ class Player(Sprite):
         self.in_air = False
         self.direction = 1
         self.sliding = False
+        self.shooting = False
 
     def move(self):
         dx = 0
@@ -55,7 +56,10 @@ class Player(Sprite):
             self.sliding_time = pygame.time.get_ticks()
         if not keys[pygame.K_DOWN] :
             self.sliding = False
-
+        if keys[pygame.K_SPACE]:
+            self.shooting = True
+        if not keys[pygame.K_SPACE]:
+            self.shooting = False
         dy += self.yspeed
         self.yspeed += 1
 

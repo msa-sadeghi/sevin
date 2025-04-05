@@ -17,12 +17,14 @@ while running == True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    if my_player.moving_state == True:
+    if my_player.sliding == True:
+        my_player.change_animation('Slide')
+    elif my_player.shooting == True:
+        my_player.change_animation('Shoot')
+    elif my_player.moving_state == True:
         my_player.change_animation("Run")
     elif my_player.in_air == True:
         my_player.change_animation('Jump')
-    elif my_player.sliding == True:
-        my_player.change_animation('Slide')
     else:
         my_player.change_animation("Idle")
     
