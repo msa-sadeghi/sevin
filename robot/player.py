@@ -1,4 +1,5 @@
 from pygame.sprite import Sprite
+from bullet import Bullet
 import pygame
 import os
 class Player(Sprite):
@@ -30,6 +31,7 @@ class Player(Sprite):
         self.direction = 1
         self.sliding = False
         self.shooting = False
+        self.last_shoot_time = pygame.time.get_ticks()
 
     def move(self):
         dx = 0
@@ -91,4 +93,14 @@ class Player(Sprite):
         if self.action != new_animation:
             self.action = new_animation
             self.frame_index = 0
+
+    def shoot(self, bullet_group):
+      
+        if self.shooting == True and pygame.time.get_ticks() - self.last_shoot_time >= 100:
+            bullet = Bullet(self.rect.centerx + self.rect.size[0] * 0.4 * self.direction, self.rect.centery, self.direction)
+            bullet_group.add(bullet)
+            self.last_shoot_time = pygame.time.get_ticks()
+            
+            
+
 

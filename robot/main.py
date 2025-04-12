@@ -1,5 +1,6 @@
 import pygame
 from player import Player
+
 pygame.init()
 
 
@@ -11,7 +12,7 @@ screen = pygame.display.set_mode((width, height))
 fps = 60
 
 my_player = Player(100, 300)
-
+player_bullet_group = pygame.sprite.Group()
 running = True
 while running == True:
     for event in pygame.event.get():
@@ -32,5 +33,8 @@ while running == True:
     screen.fill("lightblue")
     my_player.draw(screen)
     my_player.move()
+    my_player.shoot(bullet_group=player_bullet_group)
+    player_bullet_group.update()
+    player_bullet_group.draw(screen)
     pygame.display.update()
     clock.tick(fps)

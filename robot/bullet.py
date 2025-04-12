@@ -7,7 +7,10 @@ class Bullet(Sprite):
         super().__init__()
 
         self.all_images = [
-            pygame.image.load(f"./Objects/Bullet/Bullet_00{i}.png") for i in range(5)
+            pygame.transform.scale_by(
+                pygame.image.load(f"./Objects/Bullet/Bullet_00{i}.png"),
+                0.2
+            ) for i in range(5)
         ]
         self.image = self.all_images[0]
         self.rect = self.image.get_rect(center=(x,y))
@@ -16,14 +19,15 @@ class Bullet(Sprite):
         self.last_change_time = pygame.time.get_ticks()
 
     def update(self):
-        self.image = self.all_images[self.frame_index]
+        image = self.all_images[self.frame_index]
+        self.image = pygame.transform.flip(image, self.direction == -1, False)
         if pygame.time.get_ticks() - self.last_change_time >= 100:
             self.frame_index += 1
             if self.frame_index >= len(self.all_images):
                 self.frame_index = 0
-        self.image = self.all_images[0]
+        
         self.rect.x += self.direction * 10
-        if self.rect.x < 0 or self.rect.x > 800:
+        if self.rect.x < 0 or self.rect.x > 1000:
             self.kill()
         
             
