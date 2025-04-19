@@ -20,6 +20,8 @@ while running == True:
             running = False
     if my_player.sliding == True:
         my_player.change_animation('Slide')
+    elif my_player.shooting and my_player.in_air:
+        my_player.change_animation("JumpShoot")
     elif my_player.shooting and my_player.moving_state:
         my_player.change_animation("RunShoot")
     elif my_player.shooting == True:
