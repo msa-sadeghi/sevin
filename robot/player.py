@@ -31,6 +31,7 @@ class Player(Sprite):
         self.direction = 1
         self.sliding = False
         self.shooting = False
+        self.run_shoot = False
         self.last_shoot_time = pygame.time.get_ticks()
 
     def move(self):
@@ -64,7 +65,8 @@ class Player(Sprite):
             self.shooting = False
         dy += self.yspeed
         self.yspeed += 1
-
+        if self.moving_state and self.shooting:
+            self.run_shoot = True
         if self.rect.bottom + dy >= 600:
             dy = 600 - self.rect.bottom
             self.yspeed = 0
