@@ -1,10 +1,11 @@
 import pygame
+from button import Button
 pygame.init()
 import os
 WIDTH = 800
 HEIGHT = 600
 
-SIDE_MARGIN = 400
+SIDE_MARGIN = 500
 LOWER_MARGIN = 100
 TILE_SIZE = 50
 
@@ -18,14 +19,46 @@ clock = pygame.time.Clock()
 objects = []
 for img in os.listdir("./game_world/Objects"):
     objects.append(
-        pygame.transform.scale_by(pygame.image.load(img), 0.5)
+        pygame.transform.scale_by(pygame.image.load(
+            f"./game_world/Objects/{img}"), 0.2)
     )
 
 tiles = []
 for img in os.listdir("./game_world/Tiles"):
-    objects.append(
-        pygame.transform.scale_by(pygame.image.load(img), 0.5)
+    tiles.append(
+        pygame.transform.scale_by(pygame.image.load(
+            f"./game_world/Tiles/{img}"), 0.2)
     )
+
+buttons_list = []
+c = 0
+r = 0
+for img in objects:
+    buttons_list.append(
+        Button(
+            WIDTH + 10 + c * 70, 
+            10 + r * 100,
+            img,
+            "objects"
+            )
+        )
+    c += 1
+    if c == 7:
+        r += 1
+        c = 0
+for img in tiles:
+    buttons_list.append(
+        Button(
+            WIDTH + 10 + c * 70, 
+            10 + r * 100,
+            img,
+            "tiles"
+            )
+        )
+    c += 1
+    if c == 7:
+        r += 1
+        c = 0
 
 def draw_grid():
     for i in range(ROWS + 1):
@@ -44,5 +77,7 @@ while running:
     pygame.draw.rect(screen, 'lightblue', (WIDTH, 0, WIDTH + SIDE_MARGIN, HEIGHT + LOWER_MARGIN))  
     pygame.draw.rect(screen, 'lightblue', (0, HEIGHT, WIDTH + SIDE_MARGIN, HEIGHT + LOWER_MARGIN))  
     # Update the display
+    for btn in buttons_list:
+        btn.update(screen)
     pygame.display.flip()
     clock.tick(FPS)

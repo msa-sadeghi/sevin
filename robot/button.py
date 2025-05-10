@@ -1,8 +1,9 @@
 import pygame
 class Button:
-    def __init__(self, x,y, image):
+    def __init__(self, x,y, image, type):
         self.image = image
         self.rect = self.image.get_rect(topleft=(x,y))
+        self.type = type
 
 
     def update(self, screen):
