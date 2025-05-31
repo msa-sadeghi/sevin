@@ -66,6 +66,8 @@ def draw_grid():
     for j in range(MAX_COLS + 1):
         pygame.draw.line(screen, "black", (j * TILE_SIZE, 0), (j * TILE_SIZE, HEIGHT))
 
+current_btn_index = 0
+
 running = True  
 while running:
     for event in pygame.event.get():
@@ -77,7 +79,10 @@ while running:
     pygame.draw.rect(screen, 'lightblue', (WIDTH, 0, WIDTH + SIDE_MARGIN, HEIGHT + LOWER_MARGIN))  
     pygame.draw.rect(screen, 'lightblue', (0, HEIGHT, WIDTH + SIDE_MARGIN, HEIGHT + LOWER_MARGIN))  
     # Update the display
-    for btn in buttons_list:
-        btn.update(screen)
+    for i,btn in enumerate(buttons_list):
+        if btn.update(screen) == True:
+            current_btn_index = i
+
+    pygame.draw.rect(screen, "red", buttons_list[current_btn_index].rect, 3)
     pygame.display.flip()
     clock.tick(FPS)
