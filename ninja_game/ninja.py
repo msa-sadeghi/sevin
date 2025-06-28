@@ -1,6 +1,10 @@
 from pygame.sprite import Sprite
 import pygame
 import os
+WIDTH = 1000
+HEIGHT = 640
+left_border = WIDTH//3
+right_border = WIDTH - WIDTH//3
 class Ninja(Sprite):
     def __init__(self, x,y):
         super().__init__()
@@ -50,6 +54,11 @@ class Ninja(Sprite):
             dx += 5
         if not keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
             self.moving = False
+
+        if self.rect.right + dx >= 1000:
+            dx = 0
+        if self.rect.left + dx <= 0:
+            dx = 0
         self.rect.x += dx
         self.rect.y += dy
 
