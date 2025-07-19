@@ -40,22 +40,22 @@ class Ninja(Sprite):
             if self.frame_index >= len(self.all_images[self.animation]):
                 self.frame_index = 0
 
-    def move(self):
+    def move(self, dt):
         dx = 0
         dy = 0
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             self.direction =  -1
             self.moving = True
-            dx -= 5
+            dx -= 200 * dt
         if keys[pygame.K_RIGHT]:
             self.direction =  1
             self.moving = True
-            dx += 5
+            dx += 200 * dt
         if not keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
             self.moving = False
 
-        if self.rect.right + dx >= 1000:
+        if self.rect.right + dx >= 970:
             dx = 0
         if self.rect.left + dx <= 0:
             dx = 0
