@@ -1,7 +1,8 @@
 import pygame
 class Button:
-    def __init__(self, x,y, image):
+    def __init__(self, x,y, image, scale):
         self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(self.image , (scale, scale))
         self.rect = self.image.get_rect(center=(x,y))  
     def draw(self, screen):
         screen.blit(self.image, self.rect)

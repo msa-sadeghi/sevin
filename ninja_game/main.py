@@ -21,7 +21,7 @@ def draw_background():
 menu_image = pygame.image.load("freegui/png/windows/Window_06.png")
 menu_image = pygame.transform.scale(menu_image, (WIDTH, HEIGHT))
 start_button_image_path = "freegui/png/buttons/Button_03.png"
-start_button = Button(WIDTH//2, HEIGHT//2, start_button_image_path)
+start_button = Button(WIDTH//2, HEIGHT//2, start_button_image_path, )
 menu_rect = menu_image.get_rect()
 game_started = False
 def show_menu():

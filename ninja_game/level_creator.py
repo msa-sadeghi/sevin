@@ -1,4 +1,5 @@
 import pygame
+from tile_image_loader import objects_images_list, tiles_images_list, show_tiles
 pygame.init()
 WIDTH = 1000
 HEIGHT = 640
@@ -26,14 +27,13 @@ def draw_background():
     pygame.draw.rect(screen, "white", (WIDTH, 0, SIDE_MARGIN, HEIGHT + BOTTOM_MARIN))
     pygame.draw.rect(screen, "white", (0, HEIGHT, WIDTH + SIDE_MARGIN,  BOTTOM_MARIN))
 
-
-
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     draw_background()
+    show_tiles(screen)
     pygame.display.update()
 
     dt = clock.tick(FPS) / 1000
