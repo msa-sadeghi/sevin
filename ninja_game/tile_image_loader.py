@@ -34,8 +34,6 @@ for i,obj in enumerate(tiles_images_list):
 
 
 
-print(len(objects_images_list))
-print(len(tiles_images_list))
 
 def show_tiles(screen):
     for obj in objects_buttons:
