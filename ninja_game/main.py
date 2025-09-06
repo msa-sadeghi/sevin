@@ -76,10 +76,9 @@ while running:
         draw_background()
         my_ninja.draw(screen)
         box_group.draw(screen)
-        box_group.update()
+        box_group.update(scroll)
     
     pygame.display.update()
-    print("scroll", scroll)
     dt = clock.tick(FPS) / 1000
     
     my_ninja.move(dt)

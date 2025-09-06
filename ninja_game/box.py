@@ -11,6 +11,7 @@ class Box(Sprite):
 
         self.rect = self.image.get_rect(topleft=(x,y))
         box_group.add(self)
+        self.start_x = x
 
-    def update(self):
-        pass
+    def update(self,scroll):
+        self.rect.x =self.start_x - scroll
