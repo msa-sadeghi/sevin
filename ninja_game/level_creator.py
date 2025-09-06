@@ -1,5 +1,6 @@
 import pygame
 from tile_image_loader import *
+import pickle
 pygame.init()
 WIDTH = 1000
 HEIGHT = 650
@@ -51,6 +52,20 @@ def check_click_on_tiles():
         if btn.check_click():
             tile_index = i
 
+
+def save_level(level_number):
+    with open(f"levels\level{level_number}", "wb") as f:
+        pickle.dump(world_data, f)
+
+
+def load_level(level_number):
+    global world_data
+    with open(f"levels\level{level_number}", "rb") as f:
+        world_data = pickle.load(f)
+
+
+
+
 scroll = 0
 scroll_left, scroll_right = (False, False)
 
@@ -65,6 +80,13 @@ down_arrow = "./buttons/down_arrow.png"
 
 up_button = Button(150, HEIGHT + BOTTOM_MARIN // 2, up_arrow, 50)
 down_button = Button(200, HEIGHT + BOTTOM_MARIN // 2, down_arrow, 50)
+
+
+save_btn_img = "./buttons/save.png"
+load_btn_img = "./buttons/load.png"
+
+save_button = Button(250, HEIGHT + BOTTOM_MARIN // 2, save_btn_img, 50)
+load_button = Button(300, HEIGHT + BOTTOM_MARIN // 2, load_btn_img, 50)
 
 running = True
 while running:
@@ -95,7 +117,19 @@ while running:
     screen.blit(level_text, (20, HEIGHT + 40))
     up_button.draw(screen)
     down_button.draw(screen)
-
+    if up_button.check_click() and current_level < 10:
+        current_level += 1
+    if up_button.check_click() and current_level < 10:
+        current_level += 1
+    if down_button.check_click() and current_level > 1:
+        current_level -= 1
+    level_text = font.render(f"Level : {current_level}", True, "black")
+    save_button.draw(screen)
+    load_button.draw(screen)
+    if save_button.check_click():
+        save_level(current_level)
+    if load_button.check_click():
+        load_level(current_level)
 
     mouse_position = pygame.mouse.get_pos()
     col_index = (mouse_position[0] + scroll) // TILE_SIZE
