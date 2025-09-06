@@ -33,7 +33,7 @@ for i,obj in enumerate(tiles_images_list):
     tiles_buttons.append(btn)
 
 
-
+all_images = objects_images_list +  tiles_images_list
 
 def show_tiles(screen):
     for obj in objects_buttons:

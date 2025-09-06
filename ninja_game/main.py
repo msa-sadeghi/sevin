@@ -1,6 +1,8 @@
 import pygame
 from ninja import Ninja
 from button import Button
+import pickle
+from world import World
 pygame.init()
 WIDTH = 1000
 HEIGHT = 640
@@ -21,7 +23,7 @@ def draw_background():
 menu_image = pygame.image.load("freegui/png/windows/Window_06.png")
 menu_image = pygame.transform.scale(menu_image, (WIDTH, HEIGHT))
 start_button_image_path = "freegui/png/buttons/Button_03.png"
-start_button = Button(WIDTH//2, HEIGHT//2, start_button_image_path, )
+start_button = Button(WIDTH//2, HEIGHT//2, start_button_image_path, 200)
 menu_rect = menu_image.get_rect()
 game_started = False
 def show_menu():
@@ -35,6 +37,21 @@ time_to_scroll = 0
 scroll = 0
 left_border = WIDTH//3
 right_border = WIDTH - WIDTH//3 - 150
+
+level = 1
+
+world_data = []
+
+def load_level(level_number):
+    global world_data
+    with open(f"levels\level{level_number}", "rb") as f:
+        world_data = pickle.load(f)
+
+
+load_level(level)
+box_group = pygame.sprite.Group()
+game_world = World(world_data, box_group)
+
 
 running = True
 while running:
@@ -55,11 +72,14 @@ while running:
     if not game_started:
         show_menu()
     else:
+        
         draw_background()
         my_ninja.draw(screen)
+        box_group.draw(screen)
+        box_group.update()
     
     pygame.display.update()
-
+    print("scroll", scroll)
     dt = clock.tick(FPS) / 1000
     
     my_ninja.move(dt)
