@@ -13,7 +13,7 @@ bg_image = pygame.transform.scale(bg_image, (WIDTH, HEIGHT))
 FPS = 60
 clock = pygame.time.Clock()
 
-my_ninja = Ninja(100, 400)
+my_ninja = Ninja(400, 200)
 
 def draw_background():
     for i in range(4):
@@ -77,8 +77,8 @@ while running:
         my_ninja.draw(screen)
         box_group.draw(screen)
         box_group.update(scroll)
+        my_ninja.move(dt, box_group)
     
     pygame.display.update()
     dt = clock.tick(FPS) / 1000
     
-    my_ninja.move(dt)

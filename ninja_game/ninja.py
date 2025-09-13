@@ -26,8 +26,10 @@ class Ninja(Sprite):
         self.last_update_time = pygame.time.get_ticks()
         self.direction = 1
         self.moving = False
+        self.yspeed = 0
 
     def draw(self, screen):
+        pygame.draw.rect(screen, "red", self.rect, 3)
         image = self.all_images[self.animation][self.frame_index]
         self.image = pygame.transform.flip(image, self.direction == -1, False)
         screen.blit(self.image, self.rect)
@@ -40,7 +42,7 @@ class Ninja(Sprite):
             if self.frame_index >= len(self.all_images[self.animation]):
                 self.frame_index = 0
 
-    def move(self, dt):
+    def move(self, dt, box_group):
         dx = 0
         dy = 0
         keys = pygame.key.get_pressed()
@@ -54,12 +56,32 @@ class Ninja(Sprite):
             dx += 200 * dt
         if not keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]:
             self.moving = False
-
+        if keys[pygame.K_UP]:
+            self.yspeed = -14
         if self.rect.right + dx >= 970:
             dx = 0
         if self.rect.left + dx <= 0:
             dx = 0
+
+        self.yspeed += 1
+        dy += self.yspeed
+       
+        for box in box_group:
+            if box.rect.colliderect(self.rect.x + dx, self.rect.y, self.rect.size[0], self.rect.size[1]):
+                if dx > 0:
+                    dx = box.rect.left - self.rect.right
         self.rect.x += dx
+        for box in box_group:
+            if box.rect.colliderect(self.rect.x, self.rect.y + dy, self.rect.size[0], self.rect.size[1]):
+                if self.yspeed > 0:
+                    dy = box.rect.top - self.rect.bottom
+                    self.yspeed = 0
+                elif self.yspeed < 0:
+                    dy = box.rect.bottom - self.rect.top
+                    self.yspeed = 0
+                
+             
+      
         self.rect.y += dy
 
     def change_animation(self, new_animation):
