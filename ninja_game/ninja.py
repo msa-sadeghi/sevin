@@ -63,7 +63,11 @@ class Ninja(Sprite):
         if self.rect.left + dx <= 0:
             dx = 0
 
-        
+        if abs(dx) > 300 * dt:
+            if dx > 0:
+                dx = 300 * dt
+            else:
+                dx = -300 * dt
        
         for box in box_group:
             if box.rect.colliderect(self.rect.x + dx,\
