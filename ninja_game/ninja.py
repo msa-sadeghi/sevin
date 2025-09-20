@@ -63,25 +63,29 @@ class Ninja(Sprite):
         if self.rect.left + dx <= 0:
             dx = 0
 
-        self.yspeed += 1
-        dy += self.yspeed
+        
        
         for box in box_group:
-            if box.rect.colliderect(self.rect.x + dx, self.rect.y, self.rect.size[0], self.rect.size[1]):
+            if box.rect.colliderect(self.rect.x + dx,\
+                                     self.rect.y, self.rect.size[0], self.rect.size[1]):
                 if dx > 0:
                     dx = box.rect.left - self.rect.right
+                elif dx < 0:
+                    dx = box.rect.right - self.rect.left
         self.rect.x += dx
+
+
+        self.yspeed += 1
+        dy += self.yspeed
         for box in box_group:
-            if box.rect.colliderect(self.rect.x, self.rect.y + dy, self.rect.size[0], self.rect.size[1]):
+            if box.rect.colliderect(self.rect.x, self.rect.y + dy,\
+                                     self.rect.size[0], self.rect.size[1]):
                 if self.yspeed > 0:
                     dy = box.rect.top - self.rect.bottom
                     self.yspeed = 0
                 elif self.yspeed < 0:
                     dy = box.rect.bottom - self.rect.top
                     self.yspeed = 0
-                
-             
-      
         self.rect.y += dy
 
     def change_animation(self, new_animation):
