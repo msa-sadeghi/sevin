@@ -3,6 +3,7 @@ from ninja import Ninja
 from button import Button
 import pickle
 from world import World
+from tile_image_loader import all_images
 pygame.init()
 WIDTH = 1000
 HEIGHT = 640
@@ -50,8 +51,12 @@ def load_level(level_number):
 
 load_level(level)
 box_group = pygame.sprite.Group()
-game_world = World(world_data, box_group)
+energy_group = pygame.sprite.Group()
+game_world = World(world_data, box_group, energy_group)
 
+energy_count = 0
+font = pygame.font.SysFont("arial", 22)
+energy_count_text = font.render(f"{energy_count}", True, "black")
 
 running = True
 while running:
@@ -74,9 +79,19 @@ while running:
     else:
         
         draw_background()
+        screen.blit(
+            pygame.transform.scale(
+                pygame.image.load(all_images[1])
+                , (40, 40)),
+            (10, 10)
+        )
+        energy_count_text = font.render(f"{my_ninja.energy}", True, "black")
+        screen.blit(energy_count_text, (60, 20))
         my_ninja.draw(screen)
         box_group.draw(screen)
         box_group.update(scroll)
+        energy_group.draw(screen)
+        energy_group.update(scroll, my_ninja)
         my_ninja.move(dt, box_group)
     
     pygame.display.update()

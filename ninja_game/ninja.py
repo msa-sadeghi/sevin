@@ -27,9 +27,10 @@ class Ninja(Sprite):
         self.direction = 1
         self.moving = False
         self.yspeed = 0
+        self.energy = 0
 
     def draw(self, screen):
-        pygame.draw.rect(screen, "red", self.rect, 3)
+        # pygame.draw.rect(screen, "red", self.rect, 3)
         image = self.all_images[self.animation][self.frame_index]
         self.image = pygame.transform.flip(image, self.direction == -1, False)
         screen.blit(self.image, self.rect)
