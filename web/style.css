@@ -1,6 +1,14 @@
-/* body{
-    direction: rtl;
+div:not(.intro){
+    background-color: red;
+}
+
+p{
+    color: cyan !important;
+}
+
+#m{
     color: blue;
-    font-size: 28px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
+}
+.test{
+    color: red;
+}
