@@ -1,21 +1,36 @@
-div{
-    background-color: red;
-    width: 100px;
-    height: 100px;
-    animation: pulse 1.2s ease-in-out infinite;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
-
-@keyframes pulse{
-    0%{
-        transform: scale(1);
-        opacity: 1;
-    }
-    50%{
-        transform: scale(1.1);
-        opacity: .7;
-    }
-    100%{
-        transform: scale(1);
-        opacity: 1;
-    }
+.container-fluid{
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-fluid div:nth-child(2){
+    
+    margin-left: auto;
+}
+img{
+    width: 100%;
+    height: auto;
+}
+.container-fluid div:nth-child(2){
+    width: 40%;
+}
+input[type="text"]{
+    height: 40px;
+    width: 100%;
+    margin-right: 50px;
+    border-radius: 7px;
+    background-color: #efefef;
+    border: none;
+    
+}
+input[type="text"]::placeholder{
+    padding: 30px;
+    font-family: ;
 }
