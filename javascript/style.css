@@ -1,0 +1,7 @@
+ body { font-family: system-ui; max-width: 900px; margin: 24px auto; padding: 0 12px; }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; }
+      input, textarea, button { padding: 10px; font-size: 14px; }
+      textarea { width: 100%; min-height: 90px; }
+      ul { padding: 0; list-style: none; }
+      li { padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin: 8px 0; }
+      .meta { opacity: .7; font-size: 12px; }

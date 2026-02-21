@@ -1,22 +1,22 @@
-let firstName = "ali"
-let lastName = "ahmadi"
+const appEl = document.getElementById("app")
 
-let message1 = `Hello ${firstName} ${lastName}`
-console.log(message1)
-let message2 = "Hello " + firstName + " " + lastName
-console.log(message2)
+function createApp(rootEl){
 
-// let x = Number(prompt("enter a number"))
-// let y = Number(prompt("enter a number"))
-
-// console.log(x + y)
-
-let firstNameElement = document.getElementById("firstName")
-let lastNameElement = document.getElementById("lastName")
-let greet = document.getElementById("greet")
-
-function my(){
-    let firstName = firstNameElement.value
-    let lastName = lastNameElement.value
-    greet.innerHTML = `Hello ${firstName} ${lastName}`
+    rootEl.innerHTML = `
+    <div class="row">
+        <input id="q" placeholder="search..."/>
+        <button id="sample">sample</button>
+        <button id="clear">clear</button>
+    </div>
+    <div style="margin-top:10px">
+    <textarea id="text" placeholder="new note..."></textarea>
+    <div class="row">
+        <button id="add">add</button>
+        <span class="meta" id="status"></span>
+    </div>
+    </div>
+    <ul id="list"></ul>
+    `
 }
+
+createApp(appEl)
