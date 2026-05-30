@@ -14,12 +14,33 @@ function loadCard(){
                 </small>
                 <input type="number" min="1" 
                 value="${element.qty}"
-
+                onchange="updateQty(${element.id}, this.value)"
                 >
-                <button>Remove</button>
+                <button onclick="removeItem(${element.id})">Remove</button>
         `
     });
 }
 
 
 loadCard()
+
+function updateQty(id, newQty){
+    let card = JSON.parse(localStorage.getItem("card")) || []
+
+    card = card.map(item => {
+        if(item.id === id){
+            item.qty = parseInt(newQty)
+        }
+        return item
+    })
+
+    localStorage.setItem("card", JSON.stringify(card))
+    loadCard()
+}
+
+function removeItem(id){
+    let card = JSON.parse(localStorage.getItem("card"))
+    card = card.filter(p => p.id !== id)
+    localStorage.setItem("card", JSON.stringify(card))
+    loadCard()
+}

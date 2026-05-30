@@ -1,6 +1,20 @@
 import { products } from "./data.js"
 const container = document.querySelector("#product-list")
-function renderProducts(){
+const searchInput = document.querySelector('#search')
+
+
+searchInput.addEventListener('input', ()=>{
+    const value = searchInput.value.toLowerCase()
+    const filtered = products.filter(p => {
+        return p.title.toLowerCase().includes(value)
+    })
+  
+    renderProducts(filtered)
+})
+
+
+
+function renderProducts(products){
     container.innerHTML = ""
     products.forEach((p)=>{
         container.innerHTML += `<div class="product-card">
@@ -24,4 +38,4 @@ function addToCard(id){
     localStorage.setItem("card", JSON.stringify(card))
     alert("added")
 }
-renderProducts()
+renderProducts(products)
