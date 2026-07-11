@@ -19,26 +19,33 @@
 
 const rootElement = document.getElementById("root");
 
-getPrice();
 async function getPrice() {
   const url =
     "https://brsapi.ir/Api/Tsetmc/Sample/Api_FreeBourseWebService.json";
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    console.log("error");
-  }
-  const data = await response.json();
-  for (let i = 0; i < data.length; i++) {
-    const cardElement = document.createElement("div");
-    const h3 = document.createElement("h3");
-    h3.classList.add("title");
-    h3.innerText = data[i]["l30"];
-    cardElement.append(h3);
-
-    console.log(data[i]);
-
-    rootElement.append(cardElement);
+  const loadingSpan = document.createElement("span");
+  loadingSpan.innerText = "در حال بارگذاری ...";
+  loadingDiv = document.createElement("div");
+  loadingDiv.classList.add("loading");
+  rootElement.append(loadingDiv);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      loadingSpan.innerText = "  خطای سرور ...";
+      rootElement.append(loadingSpan);
+    }
+    const data = await response.json();
+    for (let i = 0; i < data.length; i++) {
+      const cardElement = document.createElement("div");
+      const h3 = document.createElement("h3");
+      h3.classList.add("title");
+      h3.innerText = data[i]["l30"];
+      cardElement.append(h3);
+      rootElement.append(cardElement);
+    }
+    rootElement.removeChild(loadingDiv);
+  } catch (error) {
+    loadingSpan.innerText = "خطای سرور   ...";
+    rootElement.append(loadingSpan);
   }
 }
 
