@@ -31,6 +31,7 @@ function getPageData(data) {
 const rootElement = document.getElementById("root");
 const SizeCount = 10;
 let pageCount;
+let currentPageNumber = 1;
 async function getPrice() {
   const url =
     "https://brsapi.ir/Api/Tsetmc/Sample/Api_FreeBourseWebService.json";
@@ -58,3 +59,11 @@ async function getPrice() {
 }
 
 getPrice();
+
+const nextButton = document.createElement("button");
+nextButton.innerText = "next";
+nextButton.addEventListener("click", () => {
+  currentPageNumber++;
+
+});
+rootElement.append(nextButton);
