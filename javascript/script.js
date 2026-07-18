@@ -17,7 +17,7 @@
 //   console.log("end");
 // }
 
-function getPageData() {
+function getPageData(data) {
   for (let i = 0; i < SizeCount; i++) {
     const cardElement = document.createElement("div");
     const h3 = document.createElement("h3");
@@ -48,7 +48,7 @@ async function getPrice() {
     const data = await response.json();
     pageCount = Math.floor(data.length / SizeCount);
     console.log(pageCount);
-    getPageData();
+    getPageData(data);
 
     rootElement.removeChild(loadingDiv);
   } catch (error) {
