@@ -1,0 +1,54 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: yekan;
+  src: url(./Yekan.woff);
+}
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #efefef;
+}
+.container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+input {
+  padding: 10px 60px;
+  border: none;
+  border-radius: 15px;
+  direction: rtl;
+  font-family: yekan;
+}
+
+span {
+  direction: rtl;
+  font-family: yekan;
+  color: red;
+}
+
+div#username_error,
+div#password_error {
+  margin: 0px auto;
+}
+input::placeholder {
+  font-family: yekan;
+}
+button {
+  font-family: yekan;
+  border: none;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+button:hover {
+  background-color: greenyellow;
+}
