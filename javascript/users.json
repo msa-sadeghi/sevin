@@ -1,4 +1,4 @@
 [
-    {"username" : "admin", "password" : "admin", "role" : "admin"},
-    {"username" : "sara", "password" : "sara", "role" : "user"}
+    {"username" : "admin", "password" : "admin", "role" : "admin", "image":"https://camo.githubusercontent.com/368d4c6ede8d6adc01befbb0130998d8293ae33e9414dc0e6fe5c7bc88db487d/68747470733a2f2f6173736574732e6f70656570732e66756e2f6176617461722d696c6c757374726174696f6e2d73797374656d2d6578616d706c652e706e67"},
+    {"username" : "sara", "password" : "sara", "role" : "user", "image" : "https://thumbs.dreamstime.com/z/cute-cartoon-girl-avatar-long-brown-hair-friendly-expression-various-uses-showcasing-young-female-character-371428712.jpg?ct=jpeg"}
 ]
